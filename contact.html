@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Suggest a release, report a problem, or say hi to the STATIC team.">
+<title>STATIC | Contact</title>
+<link rel="icon" type="image/png" href="assets/images/icon.png">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/main.js" defer></script>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<header class="header">
+  <a href="index.html" class="header__logo"><img class="header__logo-icon" src="assets/images/icon.png" alt="" width="28" height="28">STATIC<span class="header__logo-accent">.</span></a>
+  <nav class="header__nav" aria-label="Primary">
+    <ul class="header__nav-list">
+      <li class="header__nav-item"><a class="header__nav-link" href="index.html">HOME</a></li>
+      <li class="header__nav-item"><a class="header__nav-link" href="about.html">ABOUT</a></li>
+      <li class="header__nav-item"><a class="header__nav-link" href="genre.html">GENRE</a></li>
+      <li class="header__nav-item"><a class="header__nav-link" href="gallery.html">GALLERY</a></li>
+      <li class="header__nav-item"><a class="header__nav-link header__nav-link--active" href="contact.html" aria-current="page">CONTACT</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="centered" id="main-content">
+  <section class="contact-card" aria-labelledby="contact-heading">
+    <div class="contact-card__details">
+<img class="contact-card__avatar" src="assets/images/icon.png" alt="STATIC team avatar" width="110" height="110">
+      <h1 class="contact-card__heading" id="contact-heading">Contact</h1>
+      <p class="contact-card__text muted">Suggest a release, report a problem, or just say hi.</p>
+      <ul class="contact-card__list">
+        <li class="contact-card__list-item"><span class="contact-card__label">Email</span> hello@static.example</li>
+        <li class="contact-card__list-item"><span class="contact-card__label">Response time</span> 2–3 days</li>
+        <li class="contact-card__list-item"><span class="contact-card__label">Based in</span> The basement</li>
+      </ul>
+    </div>
+
+    <form class="form contact-card__form" action="#" method="post" data-demo-form>
+      <fieldset class="form__fieldset">
+        <legend class="form__legend">Send a Message</legend>
+
+        <div class="form__group">
+          <label class="form__label" for="c-name">Full Name</label>
+          <input class="field" type="text" id="c-name" name="name" autocomplete="name" required minlength="3" aria-describedby="c-name-hint c-name-error">
+          <p class="form__hint" id="c-name-hint">At least 3 characters.</p>
+          <p class="form__error" id="c-name-error" aria-live="polite"></p>
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="c-email">Email Address</label>
+          <input class="field" type="email" id="c-email" name="email" autocomplete="email" required minlength="3" aria-describedby="c-email-hint c-email-error">
+          <p class="form__hint" id="c-email-hint">Example: name@example.com</p>
+          <p class="form__error" id="c-email-error" aria-live="polite"></p>
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="c-message">Message</label>
+          <textarea class="field field--multiline" id="c-message" name="message" rows="4" required minlength="3" aria-describedby="c-message-hint c-message-error"></textarea>
+          <p class="form__hint" id="c-message-hint">At least 3 characters.</p>
+          <p class="form__error" id="c-message-error" aria-live="polite"></p>
+        </div>
+
+        <button class="button" type="submit">Send message</button>
+        <p class="form__status" data-form-status role="status" aria-live="polite"></p>
+      </fieldset>
+    </form>
+  </section>
+</main>
+
+<footer class="footer"><p class="footer__text">STATIC, an HCI class project</p></footer>
+</body>
+</html>

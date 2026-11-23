@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="tape_ghost's STATIC profile: bio, currently listening, and a message form.">
+<title>STATIC | Profile — tape_ghost</title>
+<link rel="icon" type="image/png" href="../assets/images/icon.png">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/main.js" defer></script>
+</head>
+<body class="profile-page">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<header class="header">
+  <a href="../index.html" class="header__logo"><img class="header__logo-icon" src="../assets/images/icon.png" alt="" width="28" height="28">STATIC<span class="header__logo-accent">.</span></a>
+  <a class="header__back" href="../index.html">← Back to Home</a>
+  <nav class="header__nav" aria-label="Primary">
+    <ul class="header__nav-list">
+      <li class="header__nav-item"><a class="header__nav-link" href="../index.html">HOME</a></li>
+      <li class="header__nav-item"><a class="header__nav-link" href="../about.html">ABOUT</a></li>
+      <li class="header__nav-item"><a class="header__nav-link" href="../genre.html">GENRE</a></li>
+      <li class="header__nav-item"><a class="header__nav-link" href="../gallery.html">GALLERY</a></li>
+      <li class="header__nav-item"><a class="header__nav-link" href="../contact.html">CONTACT</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="centered" id="main-content">
+  <div class="profile-wrap">
+    <section class="profile-card">
+      <img class="profile-card__banner" src="../assets/images/profiles/banner-tape_ghost.png" alt="Banner for tape_ghost" width="480" height="210" loading="lazy">
+      <img class="profile-card__avatar" src="../assets/images/profiles/avatar-tape_ghost.png" alt="Profile picture of tape_ghost" width="110" height="110">
+      <h1>tape_ghost</h1>
+      <p>pop-punk, mixtapes, and mall parking lots.</p>
+
+      <div class="status-pill">
+        <div class="cover cover--sm cover--riot"></div>
+        <div>
+          <p class="muted">Currently listening (sample data)</p>
+          <p><strong>Misery Business</strong> by Paramore</p>
+          <a class="muted" href="../albums/riot.html">Open album page</a>
+        </div>
+      </div>
+
+      <form class="form" action="#" method="post" data-demo-form>
+        <h2>Leave a message</h2>
+        <div class="form__group">
+          <label class="form__label" for="fullname">Full Name</label>
+          <input class="field" type="text" id="fullname" name="fullname" autocomplete="name" required minlength="3" aria-describedby="fullname-hint fullname-error">
+          <p class="form__hint" id="fullname-hint">At least 3 characters.</p>
+          <p class="form__error" id="fullname-error" aria-live="polite"></p>
+        </div>
+        <div class="form__group">
+          <label class="form__label" for="email">Email Address</label>
+          <input class="field" type="email" id="email" name="email" autocomplete="email" required minlength="3" aria-describedby="email-hint email-error">
+          <p class="form__hint" id="email-hint">Example: name@example.com</p>
+          <p class="form__error" id="email-error" aria-live="polite"></p>
+        </div>
+        <div class="form__group">
+          <label class="form__label" for="message">Message</label>
+          <textarea class="field field--multiline" id="message" name="message" rows="4" required minlength="3" aria-describedby="message-hint message-error"></textarea>
+          <p class="form__hint" id="message-hint">At least 3 characters.</p>
+          <p class="form__error" id="message-error" aria-live="polite"></p>
+        </div>
+        <button class="button" type="submit">Send message</button>
+        <p class="form__status" data-form-status role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="panel mini-player" aria-label="Sample player (placeholder)">
+      <div class="cover cover--sm cover--riot"></div>
+      <div class="mini-player__info">
+        <p>Misery Business — Paramore</p>
+        <progress class="mini-player__progress" value="31" max="211">0:31</progress>
+      </div>
+      <span class="muted">0:31 / 3:31</span>
+    </section>
+  </div>
+</main>
+
+<footer class="footer"><p class="footer__text">STATIC, an HCI class project</p></footer>
+</body>
+</html>

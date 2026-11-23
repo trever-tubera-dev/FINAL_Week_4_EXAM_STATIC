@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Browse alternative releases by genre: Midwest emo, shoegaze, nu-metal, and pop-punk.">
+<title>STATIC | Genres</title>
+<link rel="icon" type="image/png" href="assets/images/icon.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<header class="header">
+  <a href="index.html" class="header__logo"><img class="header__logo-icon" src="assets/images/icon.png" alt="" width="28" height="28">STATIC<span class="header__logo-accent">.</span></a>
+  <nav class="header__nav" aria-label="Primary">
+    <ul class="header__nav-list">
+      <li class="header__nav-item"><a class="header__nav-link" href="index.html">HOME</a></li>
+      <li class="header__nav-item"><a class="header__nav-link" href="about.html">ABOUT</a></li>
+      <li class="header__nav-item"><a class="header__nav-link header__nav-link--active" href="genre.html" aria-current="page">GENRE</a></li>
+      <li class="header__nav-item"><a class="header__nav-link" href="gallery.html">GALLERY</a></li>
+      <li class="header__nav-item"><a class="header__nav-link" href="contact.html">CONTACT</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="page" id="main-content">
+  <h1>Genres</h1>
+  <p class="muted">Browse releases by genre. Every card links to its own album page.</p>
+
+  <section class="genre-block" id="midwest-emo">
+    <h2>Midwest Emo</h2>
+    <p class="muted">Twinkly guitars, shouted vocals, basement shows.</p>
+    <ul class="album-grid">
+      <li class="album-card"><a class="album-card__link" href="albums/best-buds.html"><div class="cover cover--best-buds"></div><h3 class="album-card__title">Best Buds</h3><p class="album-card__meta">Mom Jeans.<br>2016</p></a></li>
+      <li class="album-card"><a class="album-card__link" href="albums/youre-gonna-miss-it-all.html"><div class="cover cover--youre-gonna-miss-it-all"></div><h3 class="album-card__title">You're Gonna Miss It All</h3><p class="album-card__meta">Modern Baseball<br>2014</p></a></li>
+      <li class="album-card"><a class="album-card__link" href="albums/american-football.html"><div class="cover cover--american-football"></div><h3 class="album-card__title">American Football</h3><p class="album-card__meta">American Football<br>1999</p></a></li>
+      <li class="album-card"><a class="album-card__link" href="albums/youll-be-fine.html"><div class="cover cover--youll-be-fine"></div><h3 class="album-card__title">You'll Be Fine</h3><p class="album-card__meta">Hot Mulligan<br>2020</p></a></li>
+    </ul>
+  </section>
+
+  <section class="genre-block" id="shoegaze">
+    <h2>Shoegaze</h2>
+    <p class="muted">Walls of guitar, buried vocals, a lot of reverb.</p>
+    <ul class="album-grid">
+      <li class="album-card"><a class="album-card__link" href="albums/unexpectedly.html"><div class="cover cover--unexpectedly"></div><h3 class="album-card__title">Unexpectedly</h3><p class="album-card__meta">Megumi Acorda<br>2019</p></a></li>
+      <li class="album-card"><a class="album-card__link" href="albums/around.html"><div class="cover cover--around"></div><h3 class="album-card__title">Around</h3><p class="album-card__meta">Whirr<br>2011</p></a></li>
+      <li class="album-card"><a class="album-card__link" href="albums/pushing-daisies.html"><div class="cover cover--pushing-daisies"></div><h3 class="album-card__title">Pushing Daisies</h3><p class="album-card__meta">Julie<br>2021</p></a></li>
+    </ul>
+  </section>
+
+  <section class="genre-block" id="nu-metal">
+    <h2>Nu-metal / Alt-metal</h2>
+    <p class="muted">Heavy, atmospheric, and unapologetically loud.</p>
+    <ul class="album-grid">
+      <li class="album-card"><a class="album-card__link" href="albums/white-pony.html"><div class="cover cover--white-pony"></div><h3 class="album-card__title">White Pony</h3><p class="album-card__meta">Deftones<br>2000</p></a></li>
+      <li class="album-card"><a class="album-card__link" href="albums/iowa.html"><div class="cover cover--iowa"></div><h3 class="album-card__title">Iowa</h3><p class="album-card__meta">Slipknot<br>2001</p></a></li>
+      <li class="album-card"><a class="album-card__link" href="albums/i-let-it-in.html"><div class="cover cover--i-let-it-in"></div><h3 class="album-card__title">I Let It In and It Took Everything</h3><p class="album-card__meta">Loathe<br>2020</p></a></li>
+    </ul>
+  </section>
+
+  <section class="genre-block" id="pop-punk">
+    <h2>Pop-punk</h2>
+    <p class="muted">The mall era, intact.</p>
+    <ul class="album-grid">
+      <li class="album-card"><a class="album-card__link" href="albums/riot.html"><div class="cover cover--riot"></div><h3 class="album-card__title">Riot!</h3><p class="album-card__meta">Paramore<br>2007</p></a></li>
+      <li class="album-card"><a class="album-card__link" href="albums/let-go.html"><div class="cover cover--let-go"></div><h3 class="album-card__title">Let Go</h3><p class="album-card__meta">Avril Lavigne<br>2002</p></a></li>
+    </ul>
+  </section>
+
+  <section class="genre-block" id="genre-table" aria-labelledby="genre-table-heading">
+    <h2 id="genre-table-heading">Genres at a glance</h2>
+    <div class="table-wrap" role="region" aria-labelledby="genre-table-caption" tabindex="0">
+      <table class="data-table">
+        <caption class="data-table__caption" id="genre-table-caption">Where each genre on STATIC began, and who to hear first</caption>
+        <thead>
+          <tr>
+            <th class="data-table__heading" scope="col">Genre</th>
+            <th class="data-table__heading" scope="col">Origin Decade</th>
+            <th class="data-table__heading" scope="col">Key Artists</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th class="data-table__row-heading" scope="row">Midwest Emo</th>
+            <td class="data-table__cell">1990s</td>
+            <td class="data-table__cell">American Football, Cap'n Jazz, Modern Baseball, Mom Jeans.</td>
+          </tr>
+          <tr>
+            <th class="data-table__row-heading" scope="row">Shoegaze</th>
+            <td class="data-table__cell">Late 1980s</td>
+            <td class="data-table__cell">My Bloody Valentine, Slowdive, Whirr, Julie, Megumi Acorda</td>
+          </tr>
+          <tr>
+            <th class="data-table__row-heading" scope="row">Nu-metal / Alt-metal</th>
+            <td class="data-table__cell">1990s</td>
+            <td class="data-table__cell">Korn, Deftones, Slipknot, Loathe</td>
+          </tr>
+          <tr>
+            <th class="data-table__row-heading" scope="row">Pop-punk</th>
+            <td class="data-table__cell">1970s to 1990s</td>
+            <td class="data-table__cell">Ramones, Green Day, Paramore, Avril Lavigne</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th class="data-table__foot" scope="row">4 genres</th>
+            <td class="data-table__foot" colspan="2">Origin decades are approximate. These scenes overlap, and many artists fit more than one.</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"><p class="footer__text">STATIC, an HCI class project</p></footer>
+</body>
+</html>

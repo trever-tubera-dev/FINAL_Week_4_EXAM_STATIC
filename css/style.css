@@ -1,0 +1,840 @@
+/* =========================================================
+   STATIC — style.css (final exam build)
+   - Every color and spacing value lives in :root (section 1)
+   - BEM class names, WCAG AA contrast, visible focus states
+   - FIXED footer (professor requirement) + reserved space in main
+   - Skip link, live form errors, data table, draggable slider
+
+   Note: CSS custom properties cannot be used inside media
+   queries, so breakpoints are written in em (50em = 800px at
+   the default 16px) to keep pixel values out of the rules.
+   ========================================================= */
+
+/* ===== 1. Design tokens (single source of truth) ===== */
+:root {
+  /* Color (contrast checked in comments) */
+  --color-bg: #0D0D0D;
+  --color-bg-2: #171717;
+  --color-card: #202020;
+  --color-nav: #000000;
+  --color-text: #F0EEEE;            /* 17.1:1 on bg */
+  --color-muted: #A3A3A3;           /* 7.7:1 on bg, 7.1:1 on bg-2 */
+  --color-accent: #B03636;          /* 3.2:1 on bg (large text / UI) */
+  --color-accent-hover: #C24A4A;
+  --color-white: #FFFFFF;           /* 6.1:1 on accent, 4.8:1 on hover */
+  --color-border: #383838;
+  --color-online: #5FAE5F;
+  --color-away: #D9A441;
+  --color-offline: #6E6E6E;
+  --color-error: #FF6B6B;           /* 6.4:1 on bg-2, 5.9:1 on card */
+  --color-shadow: rgba(0, 0, 0, 0.45);
+  --color-scanline: rgba(255, 255, 255, 0.02);
+  --color-card-glass: rgba(32, 32, 32, 0.85);
+
+  /* Cover palettes (also used as fallbacks under real cover PNGs) */
+  --cover-red: linear-gradient(135deg, #A83232, #1A0A0A);
+  --cover-blue: linear-gradient(135deg, #3B4A6B, #0D0D0D);
+  --cover-gold: linear-gradient(135deg, #6B5B3B, #1A1A1A);
+  --cover-violet: linear-gradient(135deg, #4A3B6B, #101010);
+  --cover-profile: radial-gradient(circle at 50% 0, #3A1212, var(--color-bg) 65%);
+
+  /* Typography */
+  --font-head: "Courier New", Courier, monospace;
+  --font-body: Verdana, Arial, sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.85rem;
+  --text-base: 1rem;
+  --text-lg: 1.1rem;
+  --text-xl: 1.8rem;
+  --weight-bold: 700;
+  --leading: 1.5;
+  --leading-none: 1;
+  --tracking-logo: 0.15em;
+  --tracking-wide: 0.08em;
+
+  /* Spacing scale */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 2.5rem;
+
+  /* Borders & radius */
+  --border-width-thin: 1px;
+  --border-width-thick: 2px;
+  --border-thin: var(--border-width-thin) solid var(--color-border);
+  --border-accent: var(--border-width-thick) solid var(--color-accent);
+  --border-dashed-accent: var(--border-width-thin) dashed var(--color-accent);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* Layout */
+  --layout-max: 1200px;
+  --page-max: 900px;
+  --contact-max: 960px;
+  --profile-max: 480px;
+  --sidebar-w: 280px;
+  --header-h: 6rem;                 /* room for the sticky header on anchor jumps */
+  --footer-h: 5rem;                 /* 80px: space reserved above the FIXED footer */
+  --avatar-lg: 110px;
+  --avatar-sm: 36px;
+  --logo-icon: 28px;
+  --cover-sm: 48px;
+  --cover-md: 200px;
+  --dot-size: 10px;
+  --slider-slide: 220px;
+  --album-min: 150px;
+  --table-min: 32rem;
+  --measure-sm: 32ch;
+  --measure-md: 60ch;
+  --about-media-min: 220px;
+  --scrollbar-size: 10px;
+  --line-status: 1.5rem;
+  --underline-offset: 3px;
+  --scanline-gap: 3px;
+  --lift: -2px;
+  --opacity-disabled: 0.5;
+  --z-footer: 90;
+  --z-header: 100;
+  --z-skip: 200;
+
+  /* Effects */
+  --shadow-card: 0 10px 25px var(--color-shadow);
+  --blur-card: blur(8px);
+  --transition-fast: 0.2s ease-in-out;
+}
+
+/* ===== 2. Base ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-padding-top: var(--header-h); }
+
+/* Body is still a flex column so <main> can absorb leftover height;
+   the footer itself is position: fixed (see section 5). */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background:
+    var(--color-bg)
+    repeating-linear-gradient(
+      0deg,
+      var(--color-scanline) 0 var(--border-width-thin),
+      transparent var(--border-width-thin) var(--scanline-gap)
+    );
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: var(--leading);
+  overflow-wrap: break-word;
+}
+main { flex: 1; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+h1 { font-size: var(--text-xl); }
+h2 {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-sm);
+  padding-bottom: var(--space-2xs);
+  border-bottom: var(--border-dashed-accent);
+}
+[hidden] { display: none !important; }
+
+:focus-visible {
+  outline: var(--border-width-thick) solid var(--color-accent);
+  outline-offset: var(--border-width-thick);
+}
+
+/* ===== 3. Utilities ===== */
+.muted { color: var(--color-muted); font-size: var(--text-sm); }
+.visually-hidden {
+  position: absolute; width: var(--border-width-thin); height: var(--border-width-thin);
+  padding: 0; margin: calc(-1 * var(--border-width-thin)); overflow: hidden;
+  clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* Skip link: hidden above the viewport until it receives keyboard focus */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: var(--space-md);
+  z-index: var(--z-skip);
+  padding: var(--space-xs) var(--space-md);
+  background: var(--color-accent);
+  color: var(--color-white);
+  font-weight: var(--weight-bold);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  transform: translateY(-100%);
+  transition: transform var(--transition-fast);
+}
+.skip-link:focus { transform: translateY(0); }
+.skip-link:focus-visible { outline-color: var(--color-white); }
+
+/* ===== 4. Header (sticky so it stays visible with the slider) ===== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-bg);
+  border-bottom: var(--border-thin);
+}
+.header__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-head);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-logo);
+  color: var(--color-text);
+}
+.header__logo-icon {
+  width: var(--logo-icon);
+  height: var(--logo-icon);
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.header__logo-accent { color: var(--color-accent); }
+.header__nav {
+  background: var(--color-nav);
+  border: var(--border-thin);
+  border-radius: var(--radius-pill);
+  padding: var(--space-2xs) var(--space-lg);
+}
+.header__nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-lg);
+}
+.header__nav-link {
+  display: inline-block;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  border-bottom: var(--border-width-thick) solid transparent;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+.header__nav-link:hover {
+  color: var(--color-text);
+  border-bottom-color: var(--color-accent);
+}
+.header__nav-link--active {
+  color: var(--color-text);
+  border-bottom-color: var(--color-accent);
+  font-weight: var(--weight-bold);
+}
+
+/* "← Back" link used inside the header on profiles/ and albums/ pages */
+.header__back {
+  display: inline-block;
+  padding: var(--space-2xs) var(--space-sm);
+  border: var(--border-thin);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);
+}
+.header__back:hover,
+.header__back:focus-visible {
+  color: var(--color-white);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* ===== 5. Footer — FIXED to the bottom of the screen =====
+   The professor requires the footer to stay put while scrolling.
+   Every main container reserves --footer-h (80px) of bottom
+   padding (section 6) so content never hides underneath it. */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: var(--z-footer);
+  text-align: center;
+  padding: var(--space-md);
+  background: var(--color-bg);
+  border-top: var(--border-thin);
+}
+.footer__text { color: var(--color-muted); font-size: var(--text-sm); }
+
+/* ===== 6. Layout =====
+   width: 100% is required because body is a flex column: without it,
+   an auto-margin item shrinks to its content instead of filling the row.
+   minmax(0, 1fr) lets grid columns shrink below their content width,
+   which is what prevents horizontal scrollbars on narrow screens.
+   The third padding value (--footer-h) clears the FIXED footer. */
+.layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--sidebar-w);
+  gap: var(--space-lg);
+  width: 100%;
+  max-width: var(--layout-max);
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-lg) var(--footer-h);
+}
+.page {
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-lg) var(--footer-h);
+}
+.page > * + * { margin-top: var(--space-md); }
+.panel {
+  background: var(--color-bg-2);
+  border: var(--border-thin);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+.sidebar { display: flex; flex-direction: column; gap: var(--space-md); }
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-lg) var(--space-lg) var(--footer-h);
+}
+
+/* ===== 7. Home intro (introduces the site and its creator) ===== */
+.intro {
+  background: var(--color-bg-2);
+  border: var(--border-thin);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-lg);
+}
+.intro__title {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-sm);
+}
+.intro__text { max-width: var(--measure-md); }
+.intro__text + .intro__text { margin-top: var(--space-sm); }
+
+/* ===== 8. Forms, fields, buttons ===== */
+.form { display: grid; gap: var(--space-sm); text-align: left; }
+.form__fieldset {
+  display: grid;
+  gap: var(--space-sm);
+  min-width: 0;
+  border: 0;
+}
+.form__legend {
+  width: 100%;
+  margin-bottom: var(--space-xs);
+  padding-bottom: var(--space-2xs);
+  border-bottom: var(--border-dashed-accent);
+  font-family: var(--font-head);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+}
+.form__group { display: grid; gap: var(--space-2xs); }
+.form__label { font-size: var(--text-sm); color: var(--color-muted); }
+.form__hint { font-size: var(--text-xs); color: var(--color-muted); }
+.form__error { font-size: var(--text-xs); color: var(--color-error); }
+.form__error:empty { display: none; }
+.form__status { min-height: var(--line-status); font-size: var(--text-sm); color: var(--color-online); }
+.form__status--error { color: var(--color-error); }
+.field {
+  width: 100%;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: var(--border-thin);
+  border-radius: var(--radius-pill);
+  padding: var(--space-xs) var(--space-md);
+  font: inherit;
+  transition: border-color var(--transition-fast);
+}
+.field:hover { border-color: var(--color-muted); }
+.field:focus { border-color: var(--color-accent); }
+.field[aria-invalid="false"] { border-color: var(--color-online); }
+.field[aria-invalid="true"],
+.field[aria-invalid="true"]:hover,
+.field[aria-invalid="true"]:focus { border-color: var(--color-error); }
+.field--multiline { border-radius: var(--radius-lg); resize: vertical; }
+
+.button {
+  display: inline-block;
+  background: var(--color-accent);
+  color: var(--color-white);
+  border: 0;
+  border-radius: var(--radius-pill);
+  padding: var(--space-xs) var(--space-lg);
+  font: inherit;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+.button:hover { background: var(--color-accent-hover); }
+.button--small { padding: var(--space-2xs) var(--space-md); font-size: var(--text-sm); }
+.button[aria-disabled="true"] {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+.button[aria-disabled="true"]:hover { background: var(--color-accent); }
+
+/* ===== 9. Search + genre chips ===== */
+.search { display: flex; gap: var(--space-xs); margin-bottom: var(--space-xs); }
+.search__input { flex: 1; width: auto; min-width: 0; }
+.search__status { min-height: var(--line-status); margin-bottom: var(--space-sm); }
+.chips { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-bottom: var(--space-lg); }
+.chip {
+  display: block;
+  background: var(--color-card);
+  border: var(--border-thin);
+  border-radius: var(--radius-pill);
+  padding: var(--space-2xs) var(--space-sm);
+  font-size: var(--text-sm);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+.chip:hover { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-white); }
+.chip--active { background: var(--color-accent); border-color: var(--color-accent); font-weight: var(--weight-bold); }
+
+/* ===== 10. Album grids, cards, covers ===== */
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--album-min), 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+.album-card {
+  background: var(--color-card);
+  border: var(--border-thin);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm);
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+.album-card:hover { border-color: var(--color-accent); transform: translateY(var(--lift)); }
+.album-card__link { display: block; }
+.album-card__title { font-size: var(--text-sm); }
+.album-card__meta { color: var(--color-muted); font-size: var(--text-xs); }
+.album-card__figure { display: block; }
+
+/* Works on <div> covers (CSS background) and <img> covers (gallery):
+   a fixed 1 / 1 box with cover-fit stops images from jumping around. */
+.cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-sm);
+  background-color: var(--color-card);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.cover--sm {
+  width: var(--cover-sm);
+  height: var(--cover-sm);
+  aspect-ratio: auto;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+/* ===== 11. Featured slider =====
+   The track keeps its NATIVE scrollbar visible (styled below) so users
+   can click and drag the albums sideways, in addition to Prev/Next. */
+.slider { margin-bottom: var(--space-xl); }
+.slider__track {
+  display: flex;
+  gap: var(--space-md);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: var(--space-sm);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent) var(--color-card);
+}
+.slider__track::-webkit-scrollbar { height: var(--scrollbar-size); }
+.slider__track::-webkit-scrollbar-track {
+  background: var(--color-card);
+  border-radius: var(--radius-pill);
+}
+.slider__track::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: var(--radius-pill);
+}
+.slider__track::-webkit-scrollbar-thumb:hover { background: var(--color-accent-hover); }
+.slider__slide { flex: 0 0 min(var(--slider-slide), 100%); scroll-snap-align: start; }
+.slider__controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-xs);
+  margin-top: var(--space-xs);
+}
+
+/* ===== 12. Community sidebar ===== */
+.user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-2xs) 0;
+  transition: color var(--transition-fast);
+}
+.user:hover { color: var(--color-accent); }
+.user__avatar {
+  width: var(--avatar-sm);
+  height: var(--avatar-sm);
+  border-radius: var(--radius-circle);
+  border: var(--border-thin);
+  object-fit: cover;
+}
+.user__name { font-size: var(--text-sm); }
+.user__status {
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: var(--radius-circle);
+  margin-left: auto;
+  background: var(--color-offline);
+}
+.user__status--online { background: var(--color-online); }
+.user__status--away { background: var(--color-away); }
+.user__status--offline { background: var(--color-offline); }
+
+/* ===== 13. Profile pages ===== */
+.profile-page { background: var(--cover-profile); }
+.profile-wrap {
+  width: 100%;
+  max-width: var(--profile-max);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.profile-card {
+  text-align: center;
+  background: var(--color-card-glass);
+  backdrop-filter: var(--blur-card);
+  border: var(--border-thin);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-card);
+}
+/* Filler banner — replace the src later; the aspect-ratio box keeps
+   the layout stable no matter what image you drop in. */
+.profile-card__banner {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-md);
+  border: var(--border-thin);
+  background: var(--color-bg);
+}
+.profile-card__avatar {
+  width: var(--avatar-lg);
+  height: var(--avatar-lg);
+  border-radius: var(--radius-circle);
+  object-fit: cover;
+  margin: 0 auto var(--space-md);
+  border: var(--border-accent);
+}
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  text-align: left;
+  background: var(--color-bg);
+  border: var(--border-thin);
+  border-radius: var(--radius-lg);
+  padding: var(--space-sm);
+  margin: var(--space-md) 0 var(--space-lg);
+}
+.mini-player {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  border-radius: var(--radius-xl);
+}
+.mini-player__info { flex: 1; min-width: 0; }
+.mini-player__progress { width: 100%; accent-color: var(--color-accent); }
+
+/* ===== 14. Album detail + back button ===== */
+.album-detail {
+  display: grid;
+  grid-template-columns: var(--cover-md) minmax(0, 1fr);
+  gap: var(--space-lg);
+}
+.album-detail .cover { margin-bottom: 0; }
+.tracklist { list-style: decimal; padding-left: var(--space-lg); margin-top: var(--space-xs); }
+.tracklist__item { padding: var(--space-2xs) 0; border-bottom: var(--border-thin); }
+
+/* "← Back to Genres" — sits above every album title */
+.back-link {
+  display: inline-block;
+  margin-bottom: var(--space-sm);
+  padding: var(--space-2xs) var(--space-sm);
+  border: var(--border-thin);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);
+}
+.back-link:hover,
+.back-link:focus-visible {
+  color: var(--color-white);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* ===== 15. Genre page ===== */
+.genre-block { margin-bottom: var(--space-2xl); }
+
+/* ===== 16. Contact page: two-column card ===== */
+.contact-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-xl);
+  width: 100%;
+  max-width: var(--contact-max);
+  background: var(--color-bg-2);
+  border: var(--border-thin);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-xl);
+}
+.contact-card__details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+.contact-card__avatar {
+  width: var(--avatar-lg);
+  height: var(--avatar-lg);
+  border-radius: var(--radius-circle);
+  object-fit: cover;
+  border: var(--border-accent);
+}
+.contact-card__heading { margin: 0; }
+.contact-card__text { max-width: var(--measure-sm); }
+.contact-card__list { display: grid; gap: var(--space-xs); width: 100%; }
+.contact-card__list-item {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-xs) 0;
+  border-bottom: var(--border-thin);
+  font-size: var(--text-sm);
+}
+.contact-card__label {
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+.contact-card__form { align-content: start; }
+
+/* ===== 17. Small screens (50em = 800px at default font size) ===== */
+@media (max-width: 50em) {
+  .layout, .album-detail, .contact-card { grid-template-columns: minmax(0, 1fr); }
+  .header { justify-content: center; }
+  .album-detail .cover { max-width: var(--cover-md); margin: 0 auto var(--space-sm); }
+  .contact-card { padding: var(--space-lg); gap: var(--space-lg); }
+}
+
+/* ===== 18. Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ===== 19. Gradient fallbacks (used when a real cover PNG is missing) ===== */
+.cover--red    { background-image: var(--cover-red); }
+.cover--blue   { background-image: var(--cover-blue); }
+.cover--gold   { background-image: var(--cover-gold); }
+.cover--violet { background-image: var(--cover-violet); }
+
+/* Alternating gradients for cards without a real cover (also sits behind gallery images) */
+.album-card:nth-child(4n+1) .cover:not([class*="cover--"]) { background-image: var(--cover-red); }
+.album-card:nth-child(4n+2) .cover:not([class*="cover--"]) { background-image: var(--cover-blue); }
+.album-card:nth-child(4n+3) .cover:not([class*="cover--"]) { background-image: var(--cover-gold); }
+.album-card:nth-child(4n+4) .cover:not([class*="cover--"]) { background-image: var(--cover-violet); }
+
+/* ===== 20. Real album cover images =====
+   Save PNGs as square files under assets/images/covers/.
+   The gradient on the right is the fallback if a PNG fails to load. */
+.cover--best-buds               { background-image: url("../assets/images/covers/best-buds.png"),               var(--cover-red); }
+.cover--white-pony              { background-image: url("../assets/images/covers/white-pony.png"),              var(--cover-blue); }
+.cover--riot                    { background-image: url("../assets/images/covers/riot.png"),                    var(--cover-gold); }
+.cover--unexpectedly            { background-image: url("../assets/images/covers/unexpectedly.png"),            var(--cover-violet); }
+.cover--youre-gonna-miss-it-all { background-image: url("../assets/images/covers/youre-gonna-miss-it-all.png"), var(--cover-blue); }
+.cover--american-football       { background-image: url("../assets/images/covers/american-football.png"),       var(--cover-gold); }
+.cover--around                  { background-image: url("../assets/images/covers/around.png"),                  var(--cover-blue); }
+.cover--youll-be-fine           { background-image: url("../assets/images/covers/youll-be-fine.png"),           var(--cover-violet); }
+.cover--pushing-daisies         { background-image: url("../assets/images/covers/pushing-daisies.png"),         var(--cover-red); }
+.cover--iowa                    { background-image: url("../assets/images/covers/iowa.png"),                    var(--cover-gold); }
+.cover--i-let-it-in             { background-image: url("../assets/images/covers/i-let-it-in.png"),             var(--cover-violet); }
+.cover--let-go                  { background-image: url("../assets/images/covers/let-go.png"),                  var(--cover-gold); }
+
+/* ===== 21. Spotify links (album titles + track names) ===== */
+a[href^="https://open.spotify.com"] {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: var(--border-width-thin);
+  text-underline-offset: var(--underline-offset);
+  transition: color var(--transition-fast), text-decoration-color var(--transition-fast);
+}
+a[href^="https://open.spotify.com"]:hover,
+a[href^="https://open.spotify.com"]:focus-visible {
+  color: var(--color-accent);
+  text-decoration-color: currentColor;
+}
+
+/* ===== 22. About page: intro block + collapsible sections ===== */
+.about__intro > * + * { margin-top: var(--space-md); }
+.about__figure > * + * { margin-top: var(--space-xs); }
+.about__video {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+.about__goals { list-style: disc; padding-left: var(--space-lg); }
+.about__goal { padding: var(--space-2xs) 0; }
+.about__goal + .about__goal { border-top: var(--border-thin); }
+
+.about__section {
+  background: var(--color-bg-2);
+  border: var(--border-thin);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.about__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  cursor: pointer;
+  list-style: none;
+  transition: background-color var(--transition-fast);
+}
+.about__summary::-webkit-details-marker { display: none; }
+.about__summary:hover { background-color: var(--color-card); }
+.about__summary:focus-visible {
+  outline-offset: calc(-1 * var(--border-width-thick));
+}
+.about__summary::after {
+  content: '+';
+  flex-shrink: 0;
+  font-family: var(--font-head);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-none);
+  color: var(--color-accent);
+}
+.about__section[open] > .about__summary::after {
+  content: '−';
+}
+.about__title {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-size: var(--text-lg);
+  flex: 1;
+}
+.about__body {
+  padding: var(--space-md) var(--space-lg) var(--space-lg);
+  border-top: var(--border-dashed-accent);
+}
+.about__body > * + * {
+  margin-top: var(--space-sm);
+}
+.about__glossary {
+  list-style: disc;
+  padding-left: var(--space-lg);
+}
+.about__glossary li {
+  padding: var(--space-2xs) 0;
+}
+.about__glossary li + li {
+  border-top: var(--border-thin);
+}
+
+/* Two placeholder images per About section, side by side on wide screens */
+.about__media {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--about-media-min), 1fr));
+  gap: var(--space-sm);
+}
+.about__media-item > * + * { margin-top: var(--space-2xs); }
+.about__media-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border: var(--border-thin);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+}
+
+/* Local intro video uses the same 16:9 box as the placeholder */
+.about__media-video {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: var(--color-bg);
+  border: var(--border-thin);
+  border-radius: var(--radius-md);
+}
+
+/* ===== 23. Data table (genre page) =====
+   The wrapper scrolls sideways on small screens so the page itself never does. */
+.table-wrap {
+  overflow-x: auto;
+  background: var(--color-bg-2);
+  border: var(--border-thin);
+  border-radius: var(--radius-lg);
+}
+.data-table {
+  width: 100%;
+  min-width: var(--table-min);
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--text-sm);
+}
+.data-table__caption {
+  caption-side: top;
+  padding: var(--space-md);
+  text-align: left;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+.data-table__heading {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-card);
+  border-bottom: var(--border-accent);
+  font-family: var(--font-head);
+}
+.data-table__row-heading,
+.data-table__cell {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: var(--border-thin);
+  vertical-align: top;
+}
+.data-table__row-heading { font-weight: var(--weight-bold); }
+.data-table__foot {
+  padding: var(--space-sm) var(--space-md);
+  border-top: var(--border-dashed-accent);
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+  text-align: left;
+}

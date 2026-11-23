@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Discover alternative music on STATIC: browse featured albums, search by genre, and find people who share your taste.">
+<title>STATIC | Home</title>
+<link rel="icon" type="image/png" href="assets/images/icon.png">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/main.js" defer></script>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<header class="header">
+  <a href="index.html" class="header__logo"><img class="header__logo-icon" src="assets/images/icon.png" alt="" width="28" height="28">STATIC<span class="header__logo-accent">.</span></a>
+  <nav class="header__nav" aria-label="Primary">
+    <ul class="header__nav-list">
+      <li class="header__nav-item"><a class="header__nav-link header__nav-link--active" href="index.html" aria-current="page">HOME</a></li>
+      <li class="header__nav-item"><a class="header__nav-link" href="about.html">ABOUT</a></li>
+      <li class="header__nav-item"><a class="header__nav-link" href="genre.html">GENRE</a></li>
+      <li class="header__nav-item"><a class="header__nav-link" href="gallery.html">GALLERY</a></li>
+      <li class="header__nav-item"><a class="header__nav-link" href="contact.html">CONTACT</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="layout">
+<main id="main-content">
+
+  <section class="intro" aria-labelledby="intro-heading">
+    <h1 class="intro__title" id="intro-heading">Welcome to STATIC</h1>
+    <p class="intro__text">STATIC is a home for people who love alternative music — Midwest emo, shoegaze, nu-metal, pop-punk, and everything in between. Browse featured releases, search by artist or genre, jump straight to Spotify, and see what the community is spinning right now.</p>
+    <p class="intro__text">I built STATIC as my HCI class final project. I wanted a music site that feels like the old underground web — DIY, personal, a little loud — instead of another endless recommendation feed. Every page runs on semantic HTML, one shared set of design tokens, and plain JavaScript.</p>
+  </section>
+
+  <form class="search" action="#" role="search" data-search>
+    <input class="field search__input" type="search" name="q" placeholder="Search artists, albums, genres" aria-label="Search music">
+    <button class="button" type="submit">Search</button>
+  </form>
+  <p class="search__status muted" data-search-status role="status" aria-live="polite"></p>
+
+  <ul class="chips">
+    <li><a class="chip chip--active" href="index.html">All</a></li>
+    <li><a class="chip" href="genre.html#midwest-emo">Midwest Emo</a></li>
+    <li><a class="chip" href="genre.html#shoegaze">Shoegaze</a></li>
+    <li><a class="chip" href="genre.html#nu-metal">Nu-metal</a></li>
+    <li><a class="chip" href="genre.html#pop-punk">Pop-punk</a></li>
+  </ul>
+
+  <h2>Featured albums</h2>
+  <div class="slider" data-slider role="region" aria-label="Featured albums">
+    <ul class="slider__track" tabindex="0" aria-label="Featured albums carousel">
+      <li class="album-card slider__slide"><a class="album-card__link" href="albums/best-buds.html"><div class="cover cover--best-buds"></div><h3 class="album-card__title">Best Buds</h3><p class="album-card__meta">Mom Jeans.<br>2016, Midwest Emo</p></a></li>
+      <li class="album-card slider__slide"><a class="album-card__link" href="albums/white-pony.html"><div class="cover cover--white-pony"></div><h3 class="album-card__title">White Pony</h3><p class="album-card__meta">Deftones<br>2000, Nu-metal</p></a></li>
+      <li class="album-card slider__slide"><a class="album-card__link" href="albums/riot.html"><div class="cover cover--riot"></div><h3 class="album-card__title">Riot!</h3><p class="album-card__meta">Paramore<br>2007, Pop-punk</p></a></li>
+      <li class="album-card slider__slide"><a class="album-card__link" href="albums/unexpectedly.html"><div class="cover cover--unexpectedly"></div><h3 class="album-card__title">Unexpectedly</h3><p class="album-card__meta">Megumi Acorda<br>2019, Shoegaze</p></a></li>
+      <li class="album-card slider__slide"><a class="album-card__link" href="albums/youre-gonna-miss-it-all.html"><div class="cover cover--youre-gonna-miss-it-all"></div><h3 class="album-card__title">You're Gonna Miss It All</h3><p class="album-card__meta">Modern Baseball<br>2014, Midwest Emo</p></a></li>
+      <li class="album-card slider__slide"><a class="album-card__link" href="albums/iowa.html"><div class="cover cover--iowa"></div><h3 class="album-card__title">Iowa</h3><p class="album-card__meta">Slipknot<br>2001, Nu-metal</p></a></li>
+      <li class="album-card slider__slide"><a class="album-card__link" href="albums/pushing-daisies.html"><div class="cover cover--pushing-daisies"></div><h3 class="album-card__title">Pushing Daisies</h3><p class="album-card__meta">Julie<br>2021, Shoegaze</p></a></li>
+      <li class="album-card slider__slide"><a class="album-card__link" href="albums/let-go.html"><div class="cover cover--let-go"></div><h3 class="album-card__title">Let Go</h3><p class="album-card__meta">Avril Lavigne<br>2002, Pop-punk</p></a></li>
+    </ul>
+  </div>
+
+  <h2>Recently added</h2>
+  <ul class="album-grid">
+    <li class="album-card"><a class="album-card__link" href="albums/youre-gonna-miss-it-all.html"><div class="cover cover--youre-gonna-miss-it-all"></div><h3 class="album-card__title">You're Gonna Miss It All</h3><p class="album-card__meta">Modern Baseball<br>2014, Midwest Emo</p></a></li>
+    <li class="album-card"><a class="album-card__link" href="albums/american-football.html"><div class="cover cover--american-football"></div><h3 class="album-card__title">American Football</h3><p class="album-card__meta">American Football<br>1999, Midwest Emo</p></a></li>
+    <li class="album-card"><a class="album-card__link" href="albums/around.html"><div class="cover cover--around"></div><h3 class="album-card__title">Around</h3><p class="album-card__meta">Whirr<br>2011, Shoegaze</p></a></li>
+    <li class="album-card"><a class="album-card__link" href="albums/youll-be-fine.html"><div class="cover cover--youll-be-fine"></div><h3 class="album-card__title">You'll Be Fine</h3><p class="album-card__meta">Hot Mulligan<br>2020, Emo</p></a></li>
+  </ul>
+
+  <h2>Underground picks</h2>
+  <ul class="album-grid">
+    <li class="album-card"><a class="album-card__link" href="albums/pushing-daisies.html"><div class="cover cover--pushing-daisies"></div><h3 class="album-card__title">Pushing Daisies</h3><p class="album-card__meta">Julie<br>2021, Shoegaze</p></a></li>
+    <li class="album-card"><a class="album-card__link" href="albums/iowa.html"><div class="cover cover--iowa"></div><h3 class="album-card__title">Iowa</h3><p class="album-card__meta">Slipknot<br>2001, Nu-metal</p></a></li>
+    <li class="album-card"><a class="album-card__link" href="albums/i-let-it-in.html"><div class="cover cover--i-let-it-in"></div><h3 class="album-card__title">I Let It In and It Took Everything</h3><p class="album-card__meta">Loathe<br>2020, Alt-metal</p></a></li>
+    <li class="album-card"><a class="album-card__link" href="albums/let-go.html"><div class="cover cover--let-go"></div><h3 class="album-card__title">Let Go</h3><p class="album-card__meta">Avril Lavigne<br>2002, Pop-punk</p></a></li>
+  </ul>
+</main>
+
+<aside class="sidebar" aria-label="Community">
+  <section class="panel">
+    <h2>Online now</h2>
+    <ul>
+      <li><a class="user" href="profiles/profile.html"><img class="user__avatar" src="assets/images/profiles/avatar-slowdive_kid.png" alt="Avatar of slowdive_kid" width="36" height="36"><span class="user__name">slowdive_kid</span><span class="user__status user__status--online" role="img" aria-label="Online"></span></a></li>
+      <li><a class="user" href="profiles/profile-2.html"><img class="user__avatar" src="assets/images/profiles/avatar-xX_moth_Xx.png" alt="Avatar of xX_moth_Xx" width="36" height="36"><span class="user__name">xX_moth_Xx</span><span class="user__status user__status--online" role="img" aria-label="Online"></span></a></li>
+      <li><a class="user" href="profiles/profile-3.html"><img class="user__avatar" src="assets/images/profiles/avatar-tape_ghost.png" alt="Avatar of tape_ghost" width="36" height="36"><span class="user__name">tape_ghost</span><span class="user__status user__status--away" role="img" aria-label="Away"></span></a></li>
+    </ul>
+  </section>
+  <section class="panel">
+    <h2>Friends</h2>
+    <ul>
+      <li><a class="user" href="profiles/profile-2.html"><img class="user__avatar" src="assets/images/profiles/avatar-xX_moth_Xx.png" alt="Avatar of velvet.rot" width="36" height="36"><span class="user__name">velvet.rot</span><span class="user__status user__status--online" role="img" aria-label="Online"></span></a></li>
+      <li><a class="user" href="profiles/profile-3.html"><img class="user__avatar" src="assets/images/profiles/avatar-tape_ghost.png" alt="Avatar of kid_reverb" width="36" height="36"><span class="user__name">kid_reverb</span><span class="user__status user__status--offline" role="img" aria-label="Offline"></span></a></li>
+    </ul>
+  </section>
+  <section class="panel">
+    <h2>Suggested people</h2>
+    <ul>
+      <li><a class="user" href="profiles/profile.html"><img class="user__avatar" src="assets/images/profiles/avatar-slowdive_kid.png" alt="Avatar of pale_hours_fan" width="36" height="36"><span class="user__name">pale_hours_fan</span><span class="user__status user__status--offline" role="img" aria-label="Offline"></span></a></li>
+      <li><a class="user" href="profiles/profile-2.html"><img class="user__avatar" src="assets/images/profiles/avatar-xX_moth_Xx.png" alt="Avatar of basement_saint" width="36" height="36"><span class="user__name">basement_saint</span><span class="user__status user__status--away" role="img" aria-label="Away"></span></a></li>
+    </ul>
+  </section>
+</aside>
+</div>
+
+<footer class="footer"><p class="footer__text">STATIC, an HCI class project</p></footer>
+</body>
+</html>
